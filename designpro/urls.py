@@ -20,8 +20,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+from designapp.views import register
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/designapp/', permanent=True)),
+    path('designapp/', include('designapp.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', register, name='register'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

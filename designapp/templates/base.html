@@ -8,8 +8,8 @@
     {% block content %}
 
     {% if user.is_authenticated %}
-        <a href="">Профиль</a>
-        <form action="{% url 'logout' %}" method="POST">
+        <a href="{% url 'profile' %}">Профиль</a>
+        <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit">Выход</button>
         </form>

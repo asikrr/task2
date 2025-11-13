@@ -1,7 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+
+from .models import DesignRequest
 
 def index(request):
     return render(request, 'index.html')
@@ -20,3 +23,7 @@ def register(request):
 
 def profile(request):
     return render(request, 'registration/profile.html')
+
+class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
+    model = DesignRequest
+    fields = ['title', 'description', 'category', 'image']

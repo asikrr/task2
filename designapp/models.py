@@ -20,7 +20,7 @@ class DesignRequest(models.Model):
 
     title = models.CharField(max_length=120)
     description = models.TextField()
-    category = models.ManyToManyField(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(default='default.jpg', upload_to='images/')
     status = models.CharField(max_length=1, choices=STATUS, default='n', help_text='Статус заявки')

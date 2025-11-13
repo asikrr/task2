@@ -1,3 +1,30 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+
+class Category(models.Model):
+    title = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.title
+
+class DesignRequest(models.Model):
+    STATUS = (
+        ('n', 'Новая'),
+        ('w', 'Принято в работу'),
+        ('d', 'Выполнено'),
+    )
+
+    title = models.CharField(max_length=120)
+    description = models.TextField()
+    category = models.ManyToManyField(Category, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(default='default.jpg', upload_to='images/')
+    status = models.CharField(max_length=1, choices=STATUS, default='n', help_text='Статус заявки')
+    comment = models.TextField(help_text='Комментарий к заявке')
+
+    def __str__(self):
+        return self.title

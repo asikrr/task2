@@ -8,6 +8,10 @@ class CustomUser(AbstractUser):
 class Category(models.Model):
     title = models.CharField(max_length=120)
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
     def __str__(self):
         return self.title
 
@@ -25,6 +29,10 @@ class DesignRequest(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='images/')
     status = models.CharField(max_length=1, choices=STATUS, default='n', help_text='Статус заявки')
     comment = models.TextField(help_text='Комментарий к заявке')
+
+    class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'
 
     def __str__(self):
         return self.title

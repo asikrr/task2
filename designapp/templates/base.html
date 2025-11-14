@@ -9,6 +9,7 @@
 
     <nav>
         {% if user.is_authenticated %}
+            <a href="/">Главная</a>
             <a href="{% url 'profile' %}">Профиль</a>
             <a href="{% url 'designrequest-create' %}">Создать заявку</a>
             <a href="{% url 'designrequest-list' %}">Мои заявки</a>

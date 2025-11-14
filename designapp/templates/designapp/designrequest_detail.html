@@ -10,7 +10,12 @@
         <li>Описание: {{ designrequest.description }}</li>
         <li>Категория: {{ designrequest.category }}</li>
         <li>Дата: {{ designrequest.date }}</li>
-        <li>Изображение: {{ designrequest.image }}</li>
+        <li>
+            <div>
+                <p>Изображение:</p>
+                <img src="{{ designrequest.image.url }}" width="500px">
+            </div>
+        </li>
     </ul>
     
 {% endblock %}

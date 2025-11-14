@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Ваши заявки</title>{% endblock %}
+
+{% block content %}
+
+    <h1>Информация о заявке</h1>
+    <ul>
+        <li>Название: {{ designrequest.title }}</li>
+        <li>Описание: {{ designrequest.description }}</li>
+        <li>Категория: {{ designrequest.category }}</li>
+        <li>Дата: {{ designrequest.date }}</li>
+        <li>Изображение: {{ designrequest.image }}</li>
+    </ul>
+    
+{% endblock %}

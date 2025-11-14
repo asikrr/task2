@@ -27,3 +27,9 @@ def profile(request):
 class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
     model = DesignRequest
     fields = ['title', 'description', 'category', 'image']
+
+class DesignRequestList(LoginRequiredMixin, generic.ListView):
+    model = DesignRequest
+
+class DesignRequestDetail(LoginRequiredMixin, generic.DetailView):
+    model = DesignRequest

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 from django.db import models
 
 class CustomUser(AbstractUser):
@@ -33,6 +34,9 @@ class DesignRequest(models.Model):
     class Meta:
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+
+    def get_absolute_url(self):
+        return reverse('designrequest-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.title

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Ваши заявки</title>{% endblock %}
+
+{% block content %}
+
+    <h1>Список заявок</h1>
+    
+    {% if designrequest_list %}
+        <ul>
+        {% for designrequest in designrequest_list %}
+            <li><a href="{{ designrequest.get_absolute_url }}">{{ designrequest }}</a></li>
+        {% endfor %}
+        </ul>
+        
+    {% else %}
+        <p>Список заявок пуст</p>
+    {% endif %}
+    
+{% endblock %}

@@ -3,6 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
+
+from .filters import DesignRequestFilter
 from .forms import SignupForm, DesignRequestUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -99,10 +101,26 @@ class DesignRequestUserList(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = DesignRequest.objects.filter(customer=self.request.user)
-        return queryset
+        self.filterset = DesignRequestFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset
+        return context
 
 
 class DesignRequestAllList(LoginRequiredMixin, generic.ListView):
     model = DesignRequest
     template_name = 'designapp/designrequest_all_list.html'
     context_object_name = 'designrequest_all_list'
+
+    def get_queryset(self):
+        queryset = DesignRequest.objects.filter(customer=self.request.user)
+        self.filterset = DesignRequestFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset
+        return context

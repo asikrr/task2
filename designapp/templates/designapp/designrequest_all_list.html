@@ -5,7 +5,12 @@
 {% block content %}
 
     <h1>Список всех заявок</h1>
-    
+
+    <form>
+        {{ filter.form.as_p }}
+        <button type="submit">Фильтровать</button>
+    </form>
+
     {% if designrequest_all_list %}
         <ul>
         {% for designrequest in designrequest_all_list %}

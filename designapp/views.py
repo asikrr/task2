@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .forms import SignupForm
 from django.contrib.auth import login
+from django.contrib import messages
 
 from .models import DesignRequest
 
@@ -37,6 +38,11 @@ class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
         fields.customer = self.request.user
         fields.save()
         return super().form_valid(form)
+
+
+class DesignRequestDelete(LoginRequiredMixin, generic.DeleteView):
+    model = DesignRequest
+    success_url = '/'
 
 
 class DesignRequestDetail(LoginRequiredMixin, generic.DetailView):

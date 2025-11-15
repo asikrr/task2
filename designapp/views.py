@@ -55,3 +55,5 @@ class DesignRequestUserList(LoginRequiredMixin, generic.ListView):
 
 class DesignRequestAllList(LoginRequiredMixin, generic.ListView):
     model = DesignRequest
+    template_name = 'designapp/designrequest_all_list.html'
+    context_object_name = 'designrequest_all_list'

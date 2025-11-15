@@ -9,7 +9,15 @@
     {% if designrequest_user_list %}
         <ul>
         {% for designrequest in designrequest_user_list %}
-            <li><a href="{{ designrequest.get_absolute_url }}">{{ designrequest }}</a></li>
+            <li>
+                <div>
+                    <p>Название: <a href="{{ designrequest.get_absolute_url }}">{{ designrequest.title }}</a></p>
+                    <p>Описание: {{ designrequest.description }}</p>
+                    <p>Категория: {{ designrequest.category }}</p>
+                    <p>Дата: {{ designrequest.date }}</p>
+                    <p>Статус: {{ designrequest.get_status_display }}</p>
+                </div>
+            </li>
         {% endfor %}
         </ul>
         

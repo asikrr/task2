@@ -16,6 +16,7 @@
                     <p>Категория: {{ designrequest.category }}</p>
                     <p>Дата: {{ designrequest.date }}</p>
                     <p>Статус: {{ designrequest.get_status_display }}</p>
+                    <a href="{% url 'designrequest-update' designrequest.id %}">Изменить статус</a>
                 </div>
             </li>
         {% endfor %}

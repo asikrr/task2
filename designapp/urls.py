@@ -12,4 +12,5 @@ urlpatterns = [
     path('categorys/', views.CategoryList.as_view(), name='category-list'),
     path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
     path('category/delete/<int:pk>/', views.CategoryDelete.as_view(), name='category-delete'),
+    path('designrequest/update/<int:pk>/', views.designrequest_update, name='designrequest-update'),
 ]

@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from .forms import SignupForm
+from .forms import SignupForm, DesignRequestUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
 
@@ -77,3 +78,18 @@ class DesignRequestAllList(LoginRequiredMixin, generic.ListView):
     model = DesignRequest
     template_name = 'designapp/designrequest_all_list.html'
     context_object_name = 'designrequest_all_list'
+
+
+@login_required
+def designrequest_update(request, pk):
+    designrequest = get_object_or_404(DesignRequest, pk=pk)
+
+    if request.method == 'POST':
+        form = DesignRequestUpdateForm(request.POST, request.FILES, instance=designrequest)
+        if form.is_valid():
+            form.save()
+            return redirect('designrequest-detail', pk=designrequest.pk)
+    else:
+        form = DesignRequestUpdateForm(instance=designrequest)
+
+    return render(request, 'designapp/designrequest_update_form.html', {'form': form, 'designrequest': designrequest})

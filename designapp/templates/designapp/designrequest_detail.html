@@ -11,11 +11,18 @@
         <li>Категория: {{ designrequest.category }}</li>
         <li>Дата: {{ designrequest.date }}</li>
         <li>Статус: {{ designrequest.get_status_display }}</li>
+        <li>{% if designrequest.result_image %}Комментарий: {{ designrequest.comment }}{% endif %}</li>
         <li>
             <div>
                 <p>Изображение:</p>
                 <img src="{{ designrequest.image.url }}" alt="Изображение заявки" width="500px">
             </div>
+            {% if designrequest.result_image %}
+            <div>
+                <p>Результат:</p>
+                <img src="{{ designrequest.result_image.url }}" alt="Результат" width="500px">
+            </div>
+            {% endif %}
         </li>
     </ul>
     

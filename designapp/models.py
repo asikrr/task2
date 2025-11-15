@@ -34,6 +34,7 @@ class DesignRequest(models.Model):
     status = models.CharField(max_length=1, choices=STATUS, default='n', verbose_name='Статус заявки')
     comment = models.TextField(help_text='Комментарий к заявке', blank=True, verbose_name='Комментарий')
     customer = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, verbose_name='Клиент')
+    result_image = models.ImageField(blank=True, upload_to='images/', verbose_name='Результат')
 
 
     class Meta:

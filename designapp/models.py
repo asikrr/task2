@@ -40,6 +40,7 @@ class DesignRequest(models.Model):
     class Meta:
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+        ordering = ['-date']
 
     def get_absolute_url(self):
         return reverse('designrequest-detail', args=[str(self.id)])

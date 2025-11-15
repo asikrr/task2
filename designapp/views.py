@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
 from .forms import SignupForm, DesignRequestUpdateForm
 from django.contrib.auth import login
@@ -30,6 +31,21 @@ def profile(request):
     return render(request, 'registration/profile.html')
 
 
+@login_required
+def designrequest_update(request, pk):
+    designrequest = get_object_or_404(DesignRequest, pk=pk)
+
+    if request.method == 'POST':
+        form = DesignRequestUpdateForm(request.POST, request.FILES, instance=designrequest)
+        if form.is_valid():
+            form.save()
+            return redirect('designrequest-detail', pk=designrequest.pk)
+    else:
+        form = DesignRequestUpdateForm(instance=designrequest)
+
+    return render(request, 'designapp/designrequest_update_form.html', {'form': form, 'designrequest': designrequest})
+
+
 class CategoryList(generic.ListView):
     model = Category
 
@@ -57,7 +73,19 @@ class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
 
 class DesignRequestDelete(LoginRequiredMixin, generic.DeleteView):
     model = DesignRequest
-    success_url = '/'
+    success_url = reverse_lazy('designrequest-user-list')
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.status != 'n':
+            messages.error(request, 'Можно удалять только заявки со статусом "Новая"')
+            return redirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(request, f'Заявка "{obj.title}" успешно удалена')
+        return super().delete(request, *args, **kwargs)
 
 
 class DesignRequestDetail(LoginRequiredMixin, generic.DetailView):
@@ -78,18 +106,3 @@ class DesignRequestAllList(LoginRequiredMixin, generic.ListView):
     model = DesignRequest
     template_name = 'designapp/designrequest_all_list.html'
     context_object_name = 'designrequest_all_list'
-
-
-@login_required
-def designrequest_update(request, pk):
-    designrequest = get_object_or_404(DesignRequest, pk=pk)
-
-    if request.method == 'POST':
-        form = DesignRequestUpdateForm(request.POST, request.FILES, instance=designrequest)
-        if form.is_valid():
-            form.save()
-            return redirect('designrequest-detail', pk=designrequest.pk)
-    else:
-        form = DesignRequestUpdateForm(instance=designrequest)
-
-    return render(request, 'designapp/designrequest_update_form.html', {'form': form, 'designrequest': designrequest})

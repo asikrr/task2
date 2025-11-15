@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Все заявки</title>{% endblock %}
+
+{% block content %}
+
+    <h1>Список всех категорий</h1>
+
+    <a href="{% url 'category-create' %}">Создать категорию</a>
+
+    {% if category_list %}
+        <ul>
+        {% for category in category_list %}
+            <li>
+                <div>
+                    <p>{{ category }}</p>
+                    <a href="{% url 'category-delete' category.id %}">Удалить категорию</a>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+        
+    {% else %}
+        <p>Список категорий пуст</p>
+    {% endif %}
+    
+{% endblock %}

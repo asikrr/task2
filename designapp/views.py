@@ -5,7 +5,7 @@ from .forms import SignupForm
 from django.contrib.auth import login
 from django.contrib import messages
 
-from .models import DesignRequest
+from .models import DesignRequest, Category
 
 
 def index(request):
@@ -27,6 +27,20 @@ def register(request):
 
 def profile(request):
     return render(request, 'registration/profile.html')
+
+
+class CategoryList(generic.ListView):
+    model = Category
+
+
+class CategoryCreate(LoginRequiredMixin, generic.CreateView):
+    model = Category
+    fields = ['title']
+
+
+class CategoryDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Category
+    success_url = '/'
 
 
 class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):

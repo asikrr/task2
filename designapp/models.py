@@ -13,6 +13,9 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+    def get_absolute_url(self):
+        return reverse('category-list')
+
     def __str__(self):
         return self.title
 

@@ -20,6 +20,7 @@
 
         {% if user.is_staff %}
             <a href="{% url 'designrequest-all-list' %}">Все заявки</a>
+            <a href="{% url 'category-list' %}">Категории</a>
         {% endif %}
     </nav>
 

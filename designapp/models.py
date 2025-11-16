@@ -26,16 +26,15 @@ class DesignRequest(models.Model):
         ('d', 'Выполнено'),
     )
 
-    title = models.CharField(max_length=120, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
-    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    image = models.ImageField(default='default.jpg', upload_to='images/', verbose_name='Изображение')
-    status = models.CharField(max_length=1, choices=STATUS, default='n', verbose_name='Статус заявки')
-    comment = models.TextField(help_text='Комментарий к заявке', blank=True, verbose_name='Комментарий')
-    customer = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, verbose_name='Клиент')
-    result_image = models.ImageField(blank=True, upload_to='images/', verbose_name='Результат')
-
+    title = models.CharField(max_length=120)
+    description = models.TextField()
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(default='default.jpg', upload_to='images/')
+    status = models.CharField(max_length=1, choices=STATUS, default='n')
+    comment = models.TextField(help_text='Комментарий к заявке', blank=True)
+    customer = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True)
+    result_image = models.ImageField(blank=True, upload_to='images/')
 
     class Meta:
         verbose_name = 'Заявка'

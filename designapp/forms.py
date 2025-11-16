@@ -1,4 +1,4 @@
-import re
+import re, os
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
@@ -28,6 +28,28 @@ class SignupForm(UserCreationForm):
             if not re.match(r'^[a-zA-Z-]+$', username):
                 raise ValidationError('Логин может содержать только латинские буквы, цифры и дефис')
         return username
+
+
+class DesignRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = DesignRequest
+        fields = ['title', 'description', 'category', 'image']
+        labels = {'title': 'Название', 'description': 'Описание', 'category': 'Категория', 'image': 'Фото или план помещения'}
+        help_texts = {'image': 'Допустимые форматы: jpg, jpeg, png, bmp. Макс. размер: 2 МБ.'}
+
+    def clean_image(self):
+        uploaded_image = self.cleaned_data['image']
+        if uploaded_image:
+            file_extension = os.path.splitext(uploaded_image.name)[1]
+            if file_extension.lower() not in ['.jpg', '.jpeg', '.png', '.bmp']:
+                raise forms.ValidationError("Неподходящий формат файла")
+
+            max_size = 2 * 1024 * 1024
+            if uploaded_image.size > max_size:
+                raise ValidationError('Размер файла не должен превышать 2 МБ')
+
+        return uploaded_image
 
 
 class DesignRequestUpdateForm(forms.ModelForm):

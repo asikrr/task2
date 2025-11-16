@@ -1,11 +1,11 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
 from .filters import DesignRequestFilter
-from .forms import SignupForm, DesignRequestUpdateForm
+from .forms import SignupForm, DesignRequestForm, DesignRequestUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
 
@@ -37,19 +37,15 @@ def profile(request):
     return render(request, 'registration/profile.html')
 
 
-@login_required
-def designrequest_update(request, pk):
-    designrequest = get_object_or_404(DesignRequest, pk=pk)
+class DesignRequestUpdate(PermissionRequiredMixin, generic.UpdateView):
+    model = DesignRequest
+    form_class = DesignRequestUpdateForm
+    template_name = 'designapp/designrequest_update_form.html'
+    context_object_name = 'designrequest'
+    permission_required = 'can_change_designrequest'
 
-    if request.method == 'POST':
-        form = DesignRequestUpdateForm(request.POST, request.FILES, instance=designrequest)
-        if form.is_valid():
-            form.save()
-            return redirect('designrequest-detail', pk=designrequest.pk)
-    else:
-        form = DesignRequestUpdateForm(instance=designrequest)
-
-    return render(request, 'designapp/designrequest_update_form.html', {'form': form, 'designrequest': designrequest})
+    def get_success_url(self):
+        return redirect('designrequest-detail', pk=self.object.pk)
 
 
 class CategoryList(PermissionRequiredMixin, generic.ListView):
@@ -71,7 +67,7 @@ class CategoryDelete(PermissionRequiredMixin, generic.DeleteView):
 
 class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
     model = DesignRequest
-    fields = ['title', 'description', 'category', 'image']
+    form_class = DesignRequestForm
 
     def form_valid(self, form):
         fields = form.save(commit=False)

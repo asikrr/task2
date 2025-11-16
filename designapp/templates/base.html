@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}<title>Title</title>{% endblock %}
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 <body>
-    {% block nav %}
-
-    <nav>
+    <header>
+        <nav class="nav">
         {% if user.is_authenticated %}
-            <a href="/">Главная</a>
-            <a href="{% url 'profile' %}">Профиль</a>
-            <a href="{% url 'designrequest-create' %}">Создать заявку</a>
-            <a href="{% url 'designrequest-user-list' %}">Мои заявки</a>
+            <a class="nav-link" href="/">Главная</a>
+            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+            <a class="nav-link" href="{% url 'designrequest-create' %}">Создать заявку</a>
+            <a class="nav-link" href="{% url 'designrequest-user-list' %}">Мои заявки</a>
         {% else %}
-            <a href="{% url 'login' %}">Вход</a>
-            <a href="{% url 'register' %}">Регистрация</a>
+            <a class="nav-link" href="{% url 'login' %}">Вход</a>
+            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
         {% endif %}
 
         {% if user.is_staff %}
-            <a href="{% url 'designrequest-all-list' %}">Все заявки</a>
-            <a href="{% url 'category-list' %}">Категории</a>
+            <a class="nav-link" href="{% url 'designrequest-all-list' %}">Все заявки</a>
+            <a class="nav-link" href="{% url 'category-list' %}">Категории</a>
         {% endif %}
-    </nav>
-
-    {% endblock %}
-    
-    {% block content %}
-    {% endblock %}
-
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>

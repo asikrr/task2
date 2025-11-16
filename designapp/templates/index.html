@@ -4,27 +4,32 @@
 
 {% block content %}
 
-<h1>Главная</h1>
+    <section>
+    <h1>Главная</h1>
 
-<p>Количество заявок, находящихся в статусе «Принято в работу»: {{ num_designrequests_in_work }}</p>
+    <p>Количество заявок, находящихся в статусе «Принято в работу»: {{ num_designrequests_in_work }}</p>
 
-<h2>Последние выполненные заявки</h2>
-{% if latest_done_designrequests_list %}
-    <ul>
-    {% for designrequest in latest_done_designrequests_list %}
-        <li>
-            <p>Название: {{ designrequest.title }}</p>
-            <p>Категория: {{ designrequest.category }}</p>
-            <p>Дата: {{ designrequest.date }}</p>
-            <div>
-                <p>Результат:</p>
-                <img src="{{ designrequest.result_image.url }}" alt="Результат" width="500px">
+    <h2>Последние выполненные заявки</h2>
+    {% if latest_done_designrequests_list %}
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for designrequest in latest_done_designrequests_list %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ designrequest.result_image.url }}" class="card-img-top" alt="Результат">
+                    <div class="card-body">
+                        <h5 class="card-title">Название: {{ designrequest.title }}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Категория: {{ designrequest.category }}</li>
+                        <li class="list-group-item">Дата: {{ designrequest.date }}</li>
+                    </ul>
+                </div>
             </div>
-        </li>
-    {% endfor %}
-    </ul>
-    {% else %}
-        <p>Список выполненных заявок пуст</p>
-{% endif %}
+        {% endfor %}
+        </div>
+        {% else %}
+            <p>Список выполненных заявок пуст</p>
+    {% endif %}
+    </section>
 
 {% endblock %}

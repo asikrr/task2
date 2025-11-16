@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    max-width: 1440px;
+    margin: auto;
+}
+
+nav {
+    padding-top: 10px;
+    padding-bottom: 50px;
+}

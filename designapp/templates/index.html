@@ -1,3 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %}<title>Главная</title>{% endblock %}
+
+{% block content %}
+
+<h1>Главная</h1>
+
+<p>Количество заявок, находящихся в статусе «Принято в работу»: {{ num_designrequests_in_work }}</p>
+
+<h2>Последние выполненные заявки</h2>
+{% if latest_done_designrequests_list %}
+    <ul>
+    {% for designrequest in latest_done_designrequests_list %}
+        <li>
+            <p>Название: {{ designrequest.title }}</p>
+            <p>Категория: {{ designrequest.category }}</p>
+            <p>Дата: {{ designrequest.date }}</p>
+            <p>Результат: {{ designrequest.result_image }}</p>
+            <div>
+                <p>Результат:</p>
+                <img src="{{ designrequest.result_image.url }}" alt="Результат" width="500px">
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>Список выполненных заявок пуст</p>
+{% endif %}
+
+{% endblock %}

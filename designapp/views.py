@@ -13,7 +13,11 @@ from .models import DesignRequest, Category
 
 
 def index(request):
-    return render(request, 'index.html')
+    num_designrequests_in_work = DesignRequest.objects.filter(status='w').count()
+    latest_done_designrequests_list = DesignRequest.objects.filter(status='d')[:4]
+
+    return render(request, 'index.html', {'num_designrequests_in_work': num_designrequests_in_work,
+                                          'latest_done_designrequests_list': latest_done_designrequests_list})
 
 
 def register(request):

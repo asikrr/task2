@@ -17,6 +17,7 @@
             <li>
                 <div>
                     <p>Название: <a href="{{ designrequest.get_absolute_url }}">{{ designrequest.title }}</a></p>
+                    <p>Автор: {{ designrequest.get_customer_display }}</p>
                     <p>Описание: {{ designrequest.description }}</p>
                     <p>Категория: {{ designrequest.category }}</p>
                     <p>Дата: {{ designrequest.date }}</p>

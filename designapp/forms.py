@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
@@ -13,6 +14,21 @@ class SignupForm(UserCreationForm):
         fields = ['full_name', 'username', 'email', 'password1', 'password2']
         labels = {'full_name': 'ФИО', 'username': 'Логин'}
         help_texts = {'full_name': 'Только кириллические буквы, дефис и пробелы', 'username': 'Только латиница и дефис',}
+
+    def clean_full_name(self):
+        full_name = self.cleaned_data.get('full_name')
+        if full_name:
+            if not re.match(r'^[а-яёА-ЯЁ\s-]+$', full_name.strip()):
+                raise ValidationError('ФИО может содержать только кириллические буквы, пробелы и дефисы ')
+        return full_name
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if username:
+            if not re.match(r'^[a-zA-Z-]+$', username):
+                raise ValidationError('Логин может содержать только латинские буквы, цифры и дефис')
+        return username
+
 
 class DesignRequestUpdateForm(forms.ModelForm):
     class Meta:

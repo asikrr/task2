@@ -41,6 +41,7 @@ class DesignRequest(models.Model):
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
         ordering = ['-date']
+        permissions = (("can_change_status", "Смена статуса заявки"),)
 
     def get_absolute_url(self):
         return reverse('designrequest-detail', args=[str(self.id)])

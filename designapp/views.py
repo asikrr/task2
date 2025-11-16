@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
@@ -48,18 +48,21 @@ def designrequest_update(request, pk):
     return render(request, 'designapp/designrequest_update_form.html', {'form': form, 'designrequest': designrequest})
 
 
-class CategoryList(generic.ListView):
+class CategoryList(PermissionRequiredMixin, generic.ListView):
     model = Category
+    permission_required = 'can_view_category'
 
 
-class CategoryCreate(LoginRequiredMixin, generic.CreateView):
+class CategoryCreate(PermissionRequiredMixin, generic.CreateView):
     model = Category
     fields = ['title']
+    permission_required = 'can_add_category'
 
 
-class CategoryDelete(LoginRequiredMixin, generic.DeleteView):
+class CategoryDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Category
-    success_url = '/'
+    success_url = 'category-list'
+    permission_required = 'can_delete_category'
 
 
 class DesignRequestCreate(LoginRequiredMixin, generic.CreateView):
@@ -110,10 +113,11 @@ class DesignRequestUserList(LoginRequiredMixin, generic.ListView):
         return context
 
 
-class DesignRequestAllList(LoginRequiredMixin, generic.ListView):
+class DesignRequestAllList(PermissionRequiredMixin, generic.ListView):
     model = DesignRequest
     template_name = 'designapp/designrequest_all_list.html'
     context_object_name = 'designrequest_all_list'
+    permission_required = 'can_change_status'
 
     def get_queryset(self):
         queryset = DesignRequest.objects.filter(customer=self.request.user)

@@ -1,6 +1,5 @@
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -61,7 +60,7 @@ class CategoryCreate(PermissionRequiredMixin, generic.CreateView):
 
 class CategoryDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Category
-    success_url = 'category-list'
+    success_url = reverse_lazy('category-list')
     permission_required = 'can_delete_category'
 
 

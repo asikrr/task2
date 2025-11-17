@@ -12,13 +12,14 @@
         <li>Дата: {{ designrequest.date }}</li>
         <li>Статус: {{ designrequest.get_status_display }}</li>
         {% if designrequest.comment %}<li>Комментарий: {{ designrequest.comment }}</li>{% endif %}
+        {% if designrequest.image %}
         <li>
             <div>
                 <p>Изображение:</p>
                 <img src="{{ designrequest.image.url }}" alt="Изображение заявки" width="500px">
             </div>
         </li>
-
+        {% endif %}
         {% if designrequest.result_image %}
         <li>
             <div>

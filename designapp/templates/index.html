@@ -15,7 +15,9 @@
         {% for designrequest in latest_done_designrequests_list %}
             <div class="col">
                 <div class="card">
+                    {% if designrequest.result_image %}
                     <img src="{{ designrequest.result_image.url }}" class="card-img-top" alt="Результат">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">Название: {{ designrequest.title }}</h5>
                     </div>

@@ -119,7 +119,7 @@ class DesignRequestAllList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'can_change_status'
 
     def get_queryset(self):
-        queryset = DesignRequest.objects.filter(customer=self.request.user)
+        queryset = DesignRequest.objects.all()
         self.filterset = DesignRequestFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs
 

@@ -7,7 +7,7 @@
     <h1>Вы уверены, что хотите удалить категорию "{{ category }}"?</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Удалить</button>
+        <button type="submit" class="btn btn-primary">Удалить</button>
     </form>
     
 {% endblock %}

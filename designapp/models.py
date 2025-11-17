@@ -31,7 +31,7 @@ class DesignRequest(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(default='default.jpg', upload_to='images/')
-    status = models.CharField(max_length=1, choices=STATUS, default='n')
+    status = models.CharField(max_length=1, choices=STATUS, default='n', verbose_name='Статус')
     comment = models.TextField(help_text='Комментарий к заявке', blank=True)
     customer = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True)
     result_image = models.ImageField(blank=True, upload_to='images/')

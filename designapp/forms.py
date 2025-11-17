@@ -46,7 +46,7 @@ class SignupForm(UserCreationForm):
         password2 = self.cleaned_data.get('password2')
 
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError('Введенные пароли не совпадают')
+            self.add_error('password2', 'Введенные пароли не совпадают')
 
         return cleaned_data
 
@@ -91,10 +91,9 @@ class DesignRequestUpdateForm(forms.ModelForm):
         if old_status == 'n':
             if new_status == 'd':
                 if not result_image:
-                    raise ValidationError('Для смены статуса на "Выполнено" нужно прикрепить изображение результата')
+                    self.add_error('result_image', 'Для смены статуса на "Выполнено" нужно прикрепить изображение результата')
             elif new_status == 'w':
                 if not comment:
-                    raise ValidationError(
-                        'Для смены статуса на "Принято в работу" нужно указать комментарий')
+                    self.add_error('comment', 'Для смены статуса на "Принято в работу" нужно указать комментарий')
 
         return cleaned_data

@@ -3,31 +3,36 @@
 {% block title %}<title>Ваши заявки</title>{% endblock %}
 
 {% block content %}
-
-    <h1>Список ваших заявок</h1>
-
+<section>
+    <h2>Список ваших заявок</h2>
     <form>
         {{ filter.form.as_p }}
         <button type="submit" class="btn btn-primary">Фильтровать</button>
     </form>
-
     {% if designrequest_user_list %}
-        <ul>
-        {% for designrequest in designrequest_user_list %}
-            <li>
-                <div>
-                    <p>Название: <a href="{{ designrequest.get_absolute_url }}">{{ designrequest.title }}</a></p>
-                    <p>Описание: {{ designrequest.description }}</p>
-                    <p>Категория: {{ designrequest.category }}</p>
-                    <p>Дата: {{ designrequest.date }}</p>
-                    <p>Статус: {{ designrequest.get_status_display }}</p>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for designrequest in designrequest_user_list %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Название: {{ designrequest.title }}</h5>
+                    <p class="card-text">Описание: {{ designrequest.description }}</p>
                 </div>
-            </li>
-        {% endfor %}
-        </ul>
-        
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Категория: {{ designrequest.category }}</li>
+                    <li class="list-group-item">Дата: {{ designrequest.date }}</li>
+                    <li class="list-group-item">Статус: {{ designrequest.get_status_display }}</li>
+                </ul>
+                 <div class="card-body">
+                     <a href="{{ designrequest.get_absolute_url }}" class="card-link">Подробнее</a>
+                     <a href="{% url 'designrequest-delete' designrequest.id %}" class="card-link">Удалить заявку</a>
+                 </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
     {% else %}
-        <p>Список заявок пуст</p>
+        <p>Список ваших заявок пуст</p>
     {% endif %}
-    
+</section>
 {% endblock %}

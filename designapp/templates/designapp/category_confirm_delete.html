@@ -3,11 +3,12 @@
 {% block title %}<title>Удаление категории</title>{% endblock %}
 
 {% block content %}
-
-    <h1>Вы уверены, что хотите удалить категорию "{{ category }}"?</h1>
+<section>
+    <h2>Вы уверены, что хотите удалить категорию "{{ category }}"?</h2>
     <form method="post">
         {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Удалить</button>
     </form>
-    
+</section>
 {% endblock %}

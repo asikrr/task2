@@ -8,7 +8,24 @@ body {
     margin: auto;
 }
 
-nav {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-top: 10px;
     padding-bottom: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 > a {
+    color: black;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

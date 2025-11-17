@@ -1,23 +1,16 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}<title>Заявка</title>{% endblock %}
 
 {% block content %}
-
-<h1>Обновление заявки</h1>
-<p>Автор заявки: {{ designrequest.customer }}</p>
-<p>Название: {{ designrequest.title }}</p>
-<p>Описание: {{ designrequest.description }}</p>
-<p>Категория: {{ designrequest.category }}</p>
-<p>Дата: {{ designrequest.date }}</p>
-<div>
-    <p>Изображение:</p>
-    <img src="{{ designrequest.image.url }}" alt="Изображение заявки" width="500px">
-</div>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Подтвердить</button>
-</form>
-
+<section>
+    <h2>Обновление заявки "{{ designrequest.title }}"</h2>
+    <p>Автор заявки: {{ designrequest.customer }}</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Подтвердить</button>
+    </form>
+</section>
 {% endblock %}

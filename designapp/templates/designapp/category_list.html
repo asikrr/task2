@@ -3,15 +3,13 @@
 {% block title %}<title>Все заявки</title>{% endblock %}
 
 {% block content %}
-
-    <h1>Список всех категорий</h1>
-
+<section>
+    <h2>Список всех категорий</h2>
     <a href="{% url 'category-create' %}">Создать категорию</a>
-
     {% if category_list %}
-        <ul>
+        <ul class="list-group">
         {% for category in category_list %}
-            <li>
+            <li class="list-group-item">
                 <div>
                     <p>{{ category }}</p>
                     <a href="{% url 'category-delete' category.id %}">Удалить категорию</a>
@@ -19,9 +17,8 @@
             </li>
         {% endfor %}
         </ul>
-        
     {% else %}
-        <p>Список категорий пуст</p>
+    <p>Список категорий пуст</p>
     {% endif %}
-    
+</section>
 {% endblock %}

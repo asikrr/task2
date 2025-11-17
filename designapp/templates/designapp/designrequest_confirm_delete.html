@@ -3,17 +3,17 @@
 {% block title %}<title>Удаление заявки</title>{% endblock %}
 
 {% block content %}
-
-    <h1>Вы уверены, что хотите удалить заявку "{{ designrequest }}"?</h1>
+<section>
+    <h2>Вы уверены, что хотите удалить заявку "{{ designrequest }}"?</h2>
     <form method="post">
         {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Удалить</button>
     </form>
-    
     {% if messages %}
         {% for message in messages %}
-            <p>{{ message }}</p>
+        <p>{{ message }}</p>
         {% endfor %}
     {% endif %}
-    
+</section>
 {% endblock %}

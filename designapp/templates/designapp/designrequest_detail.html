@@ -3,35 +3,48 @@
 {% block title %}<title>Ваши заявки</title>{% endblock %}
 
 {% block content %}
+<section class="py-4">
+  <div class="container">
+    <h2 class="mb-4">Информация о заявке</h2>
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Название:</strong> {{ designrequest.title }}</li>
+          <li class="list-group-item"><strong>Описание:</strong> {{ designrequest.description }}</li>
+          <li class="list-group-item"><strong>Категория:</strong> {{ designrequest.category }}</li>
+          <li class="list-group-item"><strong>Дата:</strong> {{ designrequest.date }}</li>
+          <li class="list-group-item"><strong>Статус:</strong> {{ designrequest.get_status_display }}</li>
 
-    <h1>Информация о заявке</h1>
-    <ul>
-        <li>Название: {{ designrequest.title }}</li>
-        <li>Описание: {{ designrequest.description }}</li>
-        <li>Категория: {{ designrequest.category }}</li>
-        <li>Дата: {{ designrequest.date }}</li>
-        <li>Статус: {{ designrequest.get_status_display }}</li>
-        {% if designrequest.comment %}<li>Комментарий: {{ designrequest.comment }}</li>{% endif %}
-        {% if designrequest.image %}
-        <li>
-            <div>
-                <p>Изображение:</p>
-                <img src="{{ designrequest.image.url }}" alt="Изображение заявки" width="500px">
-            </div>
-        </li>
-        {% endif %}
-        {% if designrequest.result_image %}
-        <li>
-            <div>
-                <p>Результат:</p>
-                <img src="{{ designrequest.result_image.url }}" alt="Результат" width="500px">
-            </div>
-        </li>
-        {% endif %}
-    </ul>
+          {% if designrequest.comment %}
+            <li class="list-group-item"><strong>Комментарий:</strong> {{ designrequest.comment }}</li>
+          {% endif %}
 
-    {% if designrequest.status == 'n' %}
-        <a href="{% url 'designrequest-delete' designrequest.id %}">Удалить заявку</a>
-    {% endif %}
+          {% if designrequest.image %}
+            <li class="list-group-item">
+              <strong>Изображение:</strong>
+              <div class="mt-2">
+                <img src="{{ designrequest.image.url }}"
+                     alt="Изображение заявки"
+                     class="img-fluid border rounded"
+                     style="max-width: 500px;">
+              </div>
+            </li>
+          {% endif %}
 
+          {% if designrequest.result_image %}
+            <li class="list-group-item">
+              <strong>Результат:</strong>
+              <div class="mt-2">
+                <img src="{{ designrequest.result_image.url }}"
+                     alt="Результат"
+                     class="img-fluid border rounded"
+                     style="max-width: 500px;">
+              </div>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

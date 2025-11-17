@@ -3,13 +3,13 @@
 {% block title %}<title>Профиль</title>{% endblock %}
 
 {% block content %}
-    
-    <h1>Профиль</h1>
+<section>
+    <h2>Профиль</h2>
     
     <p>Добро пожаловать, {{ user }}!</p>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary">Выход</button>
     </form>
-
+</section>
 {% endblock %}

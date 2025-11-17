@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}<title>Категория</title>{% endblock %}
 
 {% block content %}
-
-<h1>Создание категории</h1>
+<section>
+<h2>Создание категории</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p}}
+    {% bootstrap_form form %}
     <button type="submit" class="btn btn-primary">Подтвердить</button>
 </form>
-
+</section>
 {% endblock %}

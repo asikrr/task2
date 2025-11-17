@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}<title>Заявка</title>{% endblock %}
 
 {% block content %}
-
-<h1>Создание заявки</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <button type="submit" class="btn btn-primary">Подтвердить</button>
-</form>
-
+<section>
+    <h2>Создание заявки</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Подтвердить</button>
+    </form>
+</section>
 {% endblock %}

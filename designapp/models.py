@@ -3,11 +3,11 @@ from django.urls import reverse
 from django.db import models
 
 class CustomUser(AbstractUser):
-    full_name = models.CharField(max_length=255)
+    full_name = models.CharField()
     email = models.EmailField(unique=True)
 
 class Category(models.Model):
-    title = models.CharField(max_length=120, verbose_name='Название категории')
+    title = models.CharField(verbose_name='Название категории')
 
     class Meta:
         verbose_name = 'Категория'
@@ -26,13 +26,13 @@ class DesignRequest(models.Model):
         ('d', 'Выполнено'),
     )
 
-    title = models.CharField(max_length=120)
+    title = models.CharField()
     description = models.TextField()
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(default='default.jpg', upload_to='images/')
     status = models.CharField(max_length=1, choices=STATUS, default='n', verbose_name='Статус')
-    comment = models.TextField(help_text='Комментарий к заявке', blank=True)
+    comment = models.TextField(blank=True, help_text='Комментарий к заявке')
     customer = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True)
     result_image = models.ImageField(blank=True, upload_to='images/')
 

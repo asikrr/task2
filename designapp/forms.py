@@ -19,7 +19,7 @@ class SignupForm(UserCreationForm):
         full_name = self.cleaned_data.get('full_name')
         if full_name:
             if not re.match(r'^[а-яёА-ЯЁ\s-]+$', full_name.strip()):
-                raise ValidationError('ФИО может содержать только кириллические буквы, пробелы и дефисы ')
+                raise ValidationError('ФИО может содержать только кириллические буквы, пробелы и дефисы')
         return full_name
 
     def clean_username(self):
@@ -29,6 +29,22 @@ class SignupForm(UserCreationForm):
                 raise ValidationError('Логин может содержать только латинские буквы, цифры и дефис')
         return username
 
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+        if password1 and len(password1) < 8:
+            raise forms.ValidationError('Длина пароля не должна быть меньше 8 символов')
+        return password1
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError('Введенные пароли не совпадают')
+
+        return cleaned_data
+
 
 class DesignRequestForm(forms.ModelForm):
 
@@ -36,7 +52,7 @@ class DesignRequestForm(forms.ModelForm):
         model = DesignRequest
         fields = ['title', 'description', 'category', 'image']
         labels = {'title': 'Название', 'description': 'Описание', 'category': 'Категория', 'image': 'Фото или план помещения'}
-        help_texts = {'image': 'Допустимые форматы: jpg, jpeg, png, bmp. Макс. размер: 2 МБ.'}
+        help_texts = {'image': 'Допустимые форматы: jpg, jpeg, png, bmp. Макс. размер: 2 МБ'}
 
     def clean_image(self):
         uploaded_image = self.cleaned_data['image']

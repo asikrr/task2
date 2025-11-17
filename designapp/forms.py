@@ -8,6 +8,11 @@ from .models import CustomUser, DesignRequest
 
 class SignupForm(UserCreationForm):
     user_agreement = forms.BooleanField(label='Согласие на обработку персональных данных')
+    password1 = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput(),
+        help_text="Минимум 8 символов",
+    )
 
     class Meta:
         model = CustomUser

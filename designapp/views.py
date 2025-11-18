@@ -6,7 +6,6 @@ from django.views import generic
 from .filters import DesignRequestFilter
 from .forms import SignupForm, DesignRequestForm, DesignRequestUpdateForm
 from django.contrib.auth import login
-from django.contrib import messages
 
 from .models import DesignRequest, Category
 
@@ -80,14 +79,8 @@ class DesignRequestDelete(LoginRequiredMixin, generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.status != 'n':
-            messages.error(request, 'Можно удалять только заявки со статусом "Новая"')
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        obj = self.get_object()
-        messages.success(request, f'Заявка "{obj.title}" успешно удалена')
-        return super().delete(request, *args, **kwargs)
 
 
 class DesignRequestDetail(LoginRequiredMixin, generic.DetailView):

@@ -5,7 +5,7 @@
 {% block content %}
 <section>
     <h2>Профиль</h2>
-    <p>Добро пожаловать, {{ user }}!</p>
+    <p>Добро пожаловать, {{ user.full_name }}!</p>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary">Выход</button>

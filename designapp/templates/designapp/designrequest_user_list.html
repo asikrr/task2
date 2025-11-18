@@ -25,7 +25,9 @@
                 </ul>
                  <div class="card-body">
                      <a href="{{ designrequest.get_absolute_url }}" class="card-link">Подробнее</a>
+                     {% if designrequest.status == 'n' %}
                      <a href="{% url 'designrequest-delete' designrequest.id %}" class="card-link">Удалить заявку</a>
+                     {% endif %}
                  </div>
             </div>
         </div>

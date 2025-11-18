@@ -4,12 +4,12 @@
 {% block title %}<title>Вход</title>{% endblock %}
 
 {% block content %}
-
-<h1>Вход</h1>
-<form method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Войти</button>
-</form>
-
+<section>
+    <h2>Вход</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+</section>
 {% endblock %}

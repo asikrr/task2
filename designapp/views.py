@@ -42,9 +42,7 @@ class DesignRequestUpdate(PermissionRequiredMixin, generic.UpdateView):
     template_name = 'designapp/designrequest_update_form.html'
     context_object_name = 'designrequest'
     permission_required = 'can_change_designrequest'
-
-    def get_success_url(self):
-        return redirect('designrequest-detail', pk=self.object.pk)
+    success_url = reverse_lazy('designrequest-all-list')
 
 
 class CategoryList(PermissionRequiredMixin, generic.ListView):
